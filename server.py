@@ -2,9 +2,11 @@ import os
 import asyncio
 from dotenv import load_dotenv
 
-from google.maps import places_v1
-from google.type import latlng_pb2
 from google.protobuf.json_format import MessageToJson
+from google.maps import places_v1
+
+from mcp.server.fastmcp import FastMCP
+
 
 load_dotenv()
 api_key = os.getenv("GOOGLEMAPS_API_KEY")
@@ -12,7 +14,15 @@ if not api_key:
     raise ValueError("GOOGLEMAPS_API_KEY not found in environment variables.")
 
 
+mcp = FastMCP("googlemap-mcp")
+
+
+@mcp.tool()
 async def text_search(text_query: str) -> str:
+    """
+    Perform a text search for places using the Google Maps Places API.
+    example of text_query: "東京都新宿区 銭湯"
+    """
     client = places_v1.PlacesAsyncClient(client_options={"api_key": api_key})
     # Build the request
     request = places_v1.SearchTextRequest(
@@ -37,13 +47,3 @@ async def text_search(text_query: str) -> str:
         return json_str
     except Exception as e:
         return f"An error occurred: {e}"
-
-
-async def main():
-    result = await text_search("東京都府中市 焼肉")
-    print(result)
-    with open("output.json", "w", encoding="utf-8") as f:
-        f.write(result)
-
-if __name__ == "__main__":
-    asyncio.run(main())
