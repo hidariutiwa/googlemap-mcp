@@ -11,4 +11,7 @@ dependencies = [
 ]
 
 [project.scripts]
-googlemap-mcp = "googlemap-mcp.server:main"
+googlemap-mcp = "server:main"
+
+[tool.setuptools]
+py-modules = ["server"]
