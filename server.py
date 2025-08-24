@@ -47,3 +47,11 @@ async def text_search(text_query: str) -> str:
         return json_str
     except Exception as e:
         return f"An error occurred: {e}"
+
+
+def main():
+    mcp.run()
+
+
+if __name__ == "__main__":
+    main()

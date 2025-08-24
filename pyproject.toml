@@ -9,4 +9,6 @@ dependencies = [
     "google-maps-places>=0.2.2",
     "mcp[cli]>=1.13.1",
 ]
-scripts = {googlemap-mcp = "googlemap-mcp.server:main"}
+
+[project.scripts]
+googlemap-mcp = "googlemap-mcp.server:main"
