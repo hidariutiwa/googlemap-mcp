@@ -1,3 +1,4 @@
+from google.type import latlng_pb2
 import os
 from dotenv import load_dotenv
 
@@ -46,6 +47,43 @@ async def text_search(text_query: str) -> str:
         return json_str
     except Exception as e:
         return f"An error occurred: {e}"
+
+
+@mcp.tool()
+async def nearby_search(lat: float, lng: float, radius_meters: float = 10000.0) -> str:
+    """
+
+    """
+    # Create the LatLng object for the center
+    center_point = latlng_pb2.LatLng(latitude=lat, longitude=lng)
+    # Create the circle
+    circle_area = places_v1.types.Circle(
+        center=center_point,
+        radius=radius_meters
+    )
+    # Add the circle to the location restriction
+    location_restriction = places_v1.SearchNearbyRequest.LocationRestriction(
+        circle=circle_area
+    )
+    client = places_v1.PlacesAsyncClient(client_options={"api_key": api_key})
+    # Build the request
+    request = places_v1.SearchNearbyRequest(
+        location_restriction=location_restriction,
+        included_types=["restaurant"],
+    )
+    # Set the field mask
+    fieldMask = "places.formattedAddress,places.displayName"
+    # Make the request
+    try:
+        response = await client.search_nearby(request=request, metadata=[("x-goog-fieldmask", fieldMask)])
+        json_str = MessageToJson(
+            response._pb,
+            indent=2,
+            ensure_ascii=False,
+        )
+        return json_str
+    except Exception as e:
+        raise e
 
 
 def main():
