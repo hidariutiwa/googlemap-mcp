@@ -1,7 +1,7 @@
-from google.type import latlng_pb2
 import os
 from dotenv import load_dotenv
 
+from google.type import latlng_pb2
 from google.protobuf.json_format import MessageToJson
 from google.maps import places_v1
 
@@ -69,7 +69,6 @@ async def nearby_search(lat: float, lng: float, radius_meters: float = 10000.0) 
     # Build the request
     request = places_v1.SearchNearbyRequest(
         location_restriction=location_restriction,
-        included_types=["restaurant"],
     )
     # Set the field mask
     fieldMask = "places.formattedAddress,places.displayName"
