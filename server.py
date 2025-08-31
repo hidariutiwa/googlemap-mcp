@@ -1,4 +1,5 @@
 import os
+import asyncio
 from dotenv import load_dotenv
 
 from google.type import latlng_pb2
@@ -37,7 +38,10 @@ async def text_search(text_query: str) -> str:
     fieldMask = "places.id,places.displayName,places.primaryTypeDisplayName,places.primaryType,places.rating,places.userRatingCount,places.reviewSummary,places.shortFormattedAddress,places.formattedAddress,places.location,places.currentOpeningHours,places.regularOpeningHours,places.googleMapsUri,places.websiteUri,places.priceRange"
     # Make the request
     try:
-        response = await client.search_text(request=request, metadata=[("x-goog-fieldmask", fieldMask)])
+        response = await client.search_text(
+            request=request,
+            metadata=[("x-goog-fieldmask", fieldMask)]
+        )
 
         json_str = MessageToJson(
             response._pb,
@@ -52,7 +56,10 @@ async def text_search(text_query: str) -> str:
 @mcp.tool()
 async def nearby_search(lat: float, lng: float, radius_meters: float = 10000.0) -> str:
     """
-
+    Perform a nearby search for places using the Google Maps Places API.
+    example of lat,lng: 35.6938403,139.7035496
+    radius_meters: search radius in meters (default: 10000.0)
+    10,000 meters = 10 kilometers
     """
     # Create the LatLng object for the center
     center_point = latlng_pb2.LatLng(latitude=lat, longitude=lng)
@@ -69,12 +76,19 @@ async def nearby_search(lat: float, lng: float, radius_meters: float = 10000.0) 
     # Build the request
     request = places_v1.SearchNearbyRequest(
         location_restriction=location_restriction,
+        included_types=["restaurant"],
+        max_result_count=20,
+        language_code="ja",
     )
     # Set the field mask
+    # fieldMask = "places.id,places.displayName,places.primaryTypeDisplayName,places.primaryType,places.rating,places.userRatingCount,places.reviewSummary,places.shortFormattedAddress,places.formattedAddress,places.location,places.currentOpeningHours,places.regularOpeningHours,places.googleMapsUri,places.websiteUri,places.priceRange"
     fieldMask = "places.formattedAddress,places.displayName"
     # Make the request
     try:
-        response = await client.search_nearby(request=request, metadata=[("x-goog-fieldmask", fieldMask)])
+        response = await client.search_nearby(
+            request=request,
+            metadata=[("x-goog-fieldmask", fieldMask)]
+        )
         json_str = MessageToJson(
             response._pb,
             indent=2,
@@ -89,5 +103,17 @@ def main():
     mcp.run()
 
 
+async def test():
+    # 新宿駅
+    # text_search_result = await text_search("東京都新宿区 銭湯")
+    # print(text_search_result)
+
+    # 35.6938403,139.7035496
+    nearby_search_result = await nearby_search(35.6938403, 139.7035496, 10000.0)
+    print(nearby_search_result)
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    # 新宿駅
+    asyncio.run(test())
