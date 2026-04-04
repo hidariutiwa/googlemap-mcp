@@ -1,0 +1,31 @@
+{
+	"name": "tamon-dev",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": { "version": "3.12" },
+		"ghcr.io/devcontainers/features/node:1": { "version": "20" },
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+		// "ghcr.io/devcontainers-extra/features/heroku-cli:1": {},
+		// "ghcr.io/devcontainers/features/aws-cli:1": {},
+		// "ghcr.io/itsmechlark/features/postgresql:1": {},
+		// "ghcr.io/robbert229/devcontainer-features/postgresql-client:1": {},
+	},
+	"postCreateCommand": "npm install -g typescript tsx && echo 'Container ready 🎉'",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"enkia.tokyo-night",
+				"tamasfe.even-better-toml",
+				"redhat.vscode-yaml",
+				"prisma.prisma",
+				"esbenp.prettier-vscode",
+				"ms-python.black-formatter",
+				"dbaeumer.vscode-eslint",
+				"inferrinizzard.prettier-sql-vscode",
+				"jeff-hykin.better-docker-compose",
+				"vivaxy.vscode-conventional-commits",
+				"bradlc.vscode-tailwindcss"
+			]
+		}
+	}
+}

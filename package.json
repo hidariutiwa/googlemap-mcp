@@ -1,0 +1,25 @@
+{
+	"name": "dev-template",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "npx prettier . --write"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hidariutiwa/dev-template.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/hidariutiwa/dev-template/issues"
+	},
+	"homepage": "https://github.com/hidariutiwa/dev-template#readme",
+	"devDependencies": {
+		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
+		"prettier-plugin-tailwindcss": "^0.7.2"
+	}
+}

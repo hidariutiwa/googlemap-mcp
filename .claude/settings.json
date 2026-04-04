@@ -1,0 +1,46 @@
+{
+	"hooks": {
+		"PostToolUse": [
+			{
+				"matcher": "Write|Edit",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "npm run format -y"
+					}
+				]
+			}
+		]
+	},
+	"permissions": {
+		"allow": [
+			"Read(/*)",
+			"Edit(/src/*)",
+			"Edit(*.env.example)",
+			"Bash(ls *)",
+			"Bash(cat *)",
+			"Bash(tail *)",
+			"Bash(echo *)",
+			"Bash(grep *)",
+			"Bash(find *)",
+			"Bash(npm run *)",
+			"Bash(gh *)",
+			"Bash(git *)",
+			"Bash(python *)"
+		],
+		"defaultMode": "auto"
+	},
+	"enabledPlugins": {
+		"frontend-design@claude-plugins-official": true,
+		"code-review@claude-plugins-official": true,
+		"playwright@claude-plugins-official": true,
+		"commit-commands@claude-plugins-official": true,
+		"claude-md-management@claude-plugins-official": true,
+		"github@claude-plugins-official": true,
+		"typescript-lsp@claude-plugins-official": true,
+		"pr-review-toolkit@claude-plugins-official": true
+	},
+	"env": {
+		"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+	}
+}
