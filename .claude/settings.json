@@ -12,10 +12,13 @@
 			}
 		]
 	},
+    "teammateMode": "tmux",
 	"permissions": {
 		"allow": [
 			"Read(/*)",
 			"Edit(/src/*)",
+			"Edit(/tests/*)",
+			"Edit(.claude/skills/*)",
 			"Edit(*.env.example)",
 			"Bash(ls *)",
 			"Bash(cat *)",
