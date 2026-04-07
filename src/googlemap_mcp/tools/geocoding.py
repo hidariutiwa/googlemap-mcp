@@ -45,6 +45,7 @@ class GeocodingClient(BaseModel):
                 )
                 print(f"status: {response.status_code}")
                 print(f"data: {response.json()}")
+
                 return response.json()
         except Exception as e:
             print(e)

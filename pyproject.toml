@@ -8,6 +8,7 @@ requires-python = ">=3.12"
 dependencies = [
     "dotenv>=0.9.9",
     "fastmcp>=3.2.0",
+    "google-adk>=1.28.1",
     "httpx>=0.28.1",
     "pydantic>=2.12.5",
     "pytest>=9.0.2",
